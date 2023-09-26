@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post List</title>
+</head>
+<body>
+    <h1><b>Post List</b></h1>
+    <a href="{% url 'post:post-create' %}">Create New Post</a>
+    <ul>
+        {% for post in Posts %}
+            <li>
+               <a href="{% url 'post:post-detail' pk=post.id %}">
+                <h1>{{post.id}} <span> - </span><i>{{post.title}}</i></h1>
+               </a>
+                <h4><span>{{post.content}}</span><span> - </span>{{post.created_date}}</h4>
+                <a href="{% url 'post:post-update' pk=post.id %}">Update Post</a>
+                <a href="{% url 'post:post-delete' pk=post.id %}">Delete Post</a>
+
+            </li>
+        {% endfor %}
+       
+    </ul>
+    
+
+</body>
+</html>

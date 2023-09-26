@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Detail</title>
+</head>
+<body>
+    <h1><b>Post Details</b></h1>
+    <hr>
+
+    <ul>
+        <li>author : {{post.author}}</li>
+        <li>First Name : {{post.author.first_name}}</li>
+        <li>Last Name : {{post.author.last_name}}</li>
+        <li>Phone Number : +98{{post.author.user.phone}}</li>
+        <li>title : {{post.title}}</li>
+        <li>content : {{post.content}}</li>
+        <li>status : {{post.status}}</li>
+        <li>category : {{post.category}}</li>
+        <li>created_date : {{post.created_date}}</li>
+        <li>updated_date : {{post.updated_date}}</li>
+        <li>published_date : {{post.published_date}}</li>
+
+    </ul>
+    
+
+</body>
+</html>
