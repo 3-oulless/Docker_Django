@@ -36,7 +36,7 @@ class TestPostApi:
         api_client,
         common_user,
     ):
-        # api_client.force_authenticate(user=common_user)
+        api_client.force_authenticate(user=common_user)
         url = reverse("post:api_v1:post-list")
         response = api_client.get(url)
         assert response.status_code == 200
