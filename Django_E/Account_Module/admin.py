@@ -1,9 +1,18 @@
-from django.contrib import admin
-from django.contrib.auth.models import Group
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib import (
+    admin,
+)
+from django.contrib.auth.models import (
+    Group,
+)
+from django.contrib.auth.admin import (
+    UserAdmin as BaseUserAdmin,
+)
 
 
-from .models import User, Profile
+from .models import (
+    User,
+    Profile,
+)
 
 
 class UserAdmin(BaseUserAdmin):
@@ -23,7 +32,16 @@ class UserAdmin(BaseUserAdmin):
     ]
     list_filter = ["is_active"]
     fieldsets = [
-        ("Authentication", {"fields": ["phone", "email", "password"]}),
+        (
+            "Authentication",
+            {
+                "fields": [
+                    "phone",
+                    "email",
+                    "password",
+                ]
+            },
+        ),
         (
             "Permissions",
             {
@@ -35,8 +53,19 @@ class UserAdmin(BaseUserAdmin):
                 ]
             },
         ),
-        ("Group_Permissions", {"fields": ["groups", "user_permissions"]}),
-        ("Important Date", {"fields": ["last_login"]}),
+        (
+            "Group_Permissions",
+            {
+                "fields": [
+                    "groups",
+                    "user_permissions",
+                ]
+            },
+        ),
+        (
+            "Important Date",
+            {"fields": ["last_login"]},
+        ),
     ]
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.

@@ -51,7 +51,10 @@ class UserManager(BaseUserManager):
 
     def create_superuser(self, phone, password, email, **extra_fields):
         user = self.create_user(
-            phone, password=password, email=email, **extra_fields
+            phone,
+            password=password,
+            email=email,
+            **extra_fields,
         )
 
         user.is_superuser = True
@@ -95,7 +98,7 @@ class Profile(models.Model):
 
     def __str__(self):
         if self.first_name and self.last_name:
-            return f'{self.first_name + " " + self.last_name} - {self.user.email}'
+            return f'{self.first_name + " " + self.last_name}'
         return f"{self.user.phone} - {self.user.email}"
 
 

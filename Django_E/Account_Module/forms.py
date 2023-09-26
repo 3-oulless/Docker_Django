@@ -1,5 +1,9 @@
-from django import forms
-from .models import User
+from django import (
+    forms,
+)
+from .models import (
+    User,
+)
 
 
 class LoginForm(forms.Form):
@@ -15,11 +19,16 @@ class CreateUserForm(forms.Form):
 
     def clean(self):
         data = self.cleaned_data
-        if self.cleaned_data["password"] != self.cleaned_data["re_password"]:
+        if (
+            self.cleaned_data["password"]
+            != self.cleaned_data["re_password"]
+        ):
             raise forms.ValidationError("Passwords do not match")
         return data
 
-    def clean_user(self):
+    def clean_user(
+        self,
+    ):
         user_phone = self.cleaned_data.get("phone")
         user = User.objects.filter(phone=user_phone)
         if user.exists():

@@ -14,15 +14,30 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls.static import static
-from django.contrib import admin
-from django.conf import settings
-from django.urls import path, include
+from django.conf.urls.static import (
+    static,
+)
+from django.contrib import (
+    admin,
+)
+from django.conf import (
+    settings,
+)
+from django.urls import (
+    path,
+    include,
+)
 
 # swagger
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
+from rest_framework import (
+    permissions,
+)
+from drf_yasg.views import (
+    get_schema_view,
+)
+from drf_yasg import (
+    openapi,
+)
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -38,13 +53,31 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path(
+        "admin/",
+        admin.site.urls,
+    ),
     path(
         "api-auth/",
-        include("rest_framework.urls", namespace="rest_framework"),
+        include(
+            "rest_framework.urls",
+            namespace="rest_framework",
+        ),
     ),
-    path("", include("Blog_Module.urls", namespace="post")),
-    path("account/", include("Account_Module.urls", namespace="account")),
+    path(
+        "",
+        include(
+            "Blog_Module.urls",
+            namespace="post",
+        ),
+    ),
+    path(
+        "account/",
+        include(
+            "Account_Module.urls",
+            namespace="account",
+        ),
+    ),
     # swagger & redoc
     path(
         "swagger/output.json/",
@@ -53,12 +86,18 @@ urlpatterns = [
     ),
     path(
         "swagger/",
-        schema_view.with_ui("swagger", cache_timeout=0),
+        schema_view.with_ui(
+            "swagger",
+            cache_timeout=0,
+        ),
         name="schema-swagger-ui",
     ),
     path(
         "redoc/",
-        schema_view.with_ui("redoc", cache_timeout=0),
+        schema_view.with_ui(
+            "redoc",
+            cache_timeout=0,
+        ),
         name="schema-redoc",
     ),
 ]
@@ -67,9 +106,11 @@ urlpatterns = [
 if settings.DEBUG:
     # add root static files
     urlpatterns = urlpatterns + static(
-        settings.STATIC_URL, document_root=settings.STATIC_ROOT
+        settings.STATIC_URL,
+        document_root=settings.STATIC_ROOT,
     )
     # add media static files
     urlpatterns = urlpatterns + static(
-        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT,
     )

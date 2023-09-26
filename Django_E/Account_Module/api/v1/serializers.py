@@ -1,18 +1,41 @@
-from rest_framework import serializers
-from Account_Module.models import User, Profile
-from django.contrib.auth.password_validation import validate_password
-from django.contrib.auth import authenticate
-from django.utils.translation import gettext_lazy as _
-from django.core import exceptions
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework import (
+    serializers,
+)
+from Account_Module.models import (
+    User,
+    Profile,
+)
+from django.contrib.auth.password_validation import (
+    validate_password,
+)
+from django.contrib.auth import (
+    authenticate,
+)
+from django.utils.translation import (
+    gettext_lazy as _,
+)
+from django.core import (
+    exceptions,
+)
+from rest_framework_simplejwt.serializers import (
+    TokenObtainPairSerializer,
+)
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
-    re_password = serializers.CharField(max_length=250, write_only=True)
+    re_password = serializers.CharField(
+        max_length=250,
+        write_only=True,
+    )
 
     class Meta:
         model = User
-        fields = ["phone", "email", "password", "re_password"]
+        fields = [
+            "phone",
+            "email",
+            "password",
+            "re_password",
+        ]
 
     def validate(self, attrs):
         if attrs.get("password") != attrs.get("re_password"):
@@ -23,24 +46,38 @@ class RegistrationSerializer(serializers.ModelSerializer):
         try:
             validate_password(attrs.get("password"))
         except exceptions.ValidationError as e:
-            raise serializers.ValidationError({"password": list(e.messages)})
+            raise serializers.ValidationError(
+                {"password": list(e.messages)}
+            )
 
         return super().validate(attrs)
 
-    def create(self, validated_data):
-        validated_data.pop("re_password", None)
+    def create(
+        self,
+        validated_data,
+    ):
+        validated_data.pop(
+            "re_password",
+            None,
+        )
         return User.objects.create_user(**validated_data)
 
 
 class CustomAuthTokenSerializer(serializers.Serializer):
-    phone = serializers.CharField(label=_("phone"), write_only=True)
+    phone = serializers.CharField(
+        label=_("phone"),
+        write_only=True,
+    )
     password = serializers.CharField(
         label=_("Password"),
         style={"input_type": "password"},
         trim_whitespace=False,
         write_only=True,
     )
-    token = serializers.CharField(label=_("Token"), read_only=True)
+    token = serializers.CharField(
+        label=_("Token"),
+        read_only=True,
+    )
 
     def validate(self, attrs):
         phone = attrs.get("phone")
@@ -55,10 +92,16 @@ class CustomAuthTokenSerializer(serializers.Serializer):
 
             if not user:
                 msg = _("Unable to log in with provided credentials.")
-                raise serializers.ValidationError(msg, code="authorization")
+                raise serializers.ValidationError(
+                    msg,
+                    code="authorization",
+                )
         else:
             msg = _('Must include "username" and "password".')
-            raise serializers.ValidationError(msg, code="authorization")
+            raise serializers.ValidationError(
+                msg,
+                code="authorization",
+            )
 
         attrs["user"] = user
         return attrs
@@ -96,7 +139,10 @@ class ChangePasswordSerializer(serializers.Serializer):
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    email = serializers.CharField(source="user.email", read_only=True)
+    email = serializers.CharField(
+        source="user.email",
+        read_only=True,
+    )
 
     class Meta:
         model = Profile
@@ -147,8 +193,14 @@ class ResetPasswordSendTokenSerializer(serializers.Serializer):
 
 
 class ResetPasswordSerializer(serializers.Serializer):
-    password = serializers.CharField(max_length=250, write_only=True)
-    re_password = serializers.CharField(max_length=250, write_only=True)
+    password = serializers.CharField(
+        max_length=250,
+        write_only=True,
+    )
+    re_password = serializers.CharField(
+        max_length=250,
+        write_only=True,
+    )
 
     def validate(self, attrs):
         if attrs.get("password") != attrs.get("re_password"):
@@ -159,6 +211,8 @@ class ResetPasswordSerializer(serializers.Serializer):
         try:
             validate_password(attrs.get("password"))
         except exceptions.ValidationError as e:
-            raise serializers.ValidationError({"password": list(e.messages)})
+            raise serializers.ValidationError(
+                {"password": list(e.messages)}
+            )
 
         return super().validate(attrs)

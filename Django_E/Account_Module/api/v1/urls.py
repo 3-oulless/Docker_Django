@@ -1,6 +1,11 @@
-from django.urls import path
+from django.urls import (
+    path,
+)
 from . import views
-from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
+from rest_framework_simplejwt.views import (
+    TokenRefreshView,
+    TokenVerifyView,
+)
 
 
 app_name = "api_v1"
@@ -8,7 +13,11 @@ app_name = "api_v1"
 
 urlpatterns = [
     # create user
-    path("register/", views.RegistrationApiView.as_view(), name="register"),
+    path(
+        "register/",
+        views.RegistrationApiView.as_view(),
+        name="register",
+    ),
     # login Token
     path(
         "token/login/",
@@ -37,8 +46,16 @@ urlpatterns = [
         views.CustomTokenObtainPairView.as_view(),
         name="jwt_create",
     ),
-    path("jwt/refresh/", TokenRefreshView.as_view(), name="jwt_refresh"),
-    path("jwt/verify/", TokenVerifyView.as_view(), name="jwt_verify"),
+    path(
+        "jwt/refresh/",
+        TokenRefreshView.as_view(),
+        name="jwt_refresh",
+    ),
+    path(
+        "jwt/verify/",
+        TokenVerifyView.as_view(),
+        name="jwt_verify",
+    ),
     # change password
     path(
         "change_password/",
@@ -62,5 +79,9 @@ urlpatterns = [
         name="reset_password",
     ),
     # profile
-    path("profile/", views.ProfileView.as_view(), name="profile"),
+    path(
+        "profile/",
+        views.ProfileView.as_view(),
+        name="profile",
+    ),
 ]
