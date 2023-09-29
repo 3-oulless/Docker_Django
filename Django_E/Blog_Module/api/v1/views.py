@@ -1,6 +1,5 @@
 from rest_framework.permissions import (
     IsAuthenticatedOrReadOnly,
-    IsAuthenticated,
 )
 from rest_framework import (
     viewsets,
@@ -33,7 +32,6 @@ from rest_framework.filters import (
 class PostModelViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by("-created_date")
     permission_classes = [
-        IsAuthenticated,
         IsOwnerOrReadOnly,
     ]
     serializer_class = PostSerializer

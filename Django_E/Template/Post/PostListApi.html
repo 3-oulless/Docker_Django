@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api Template</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Post List(Api)</h1>
+    
+    <ol id="warp_item">
+
+    </ol>
+
+
+    <script>
+        $.get('/api/v1/post/',  // url
+            function (data) {  // success callback
+                warper = $('#warp_item');
+                for (post of data.results){
+                    warper.append(`<li><a href="${post.absolute_url}"><h1>${post.title}</h1></a></li>`)
+                }
+                console.log(data)
+            });
+    </script>
+</body>
+</html>
+
+<!-- warper.append("<li><a href="${post.absolute_url}">"${post.title}"</a></li>") -->

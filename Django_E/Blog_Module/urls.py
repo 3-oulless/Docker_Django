@@ -9,6 +9,7 @@ from .views import (
     UpdatePost,
     DeletePost,
     IndexView,
+    PostListApiView,
 )
 
 
@@ -25,6 +26,11 @@ urlpatterns = [
         "",
         PostList.as_view(),
         name="post-list",
+    ),
+    path(
+        "api/",
+        PostListApiView.as_view(),
+        name="post-list-api",
     ),
     path(
         "<pk>",

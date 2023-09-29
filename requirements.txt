@@ -36,3 +36,5 @@ black
 flake8
 pytest
 pytest-django
+faker
+django-cors-headers
