@@ -40,6 +40,10 @@ class PostList(
     ordering = "-id"
 
 
+class PostListApiView(TemplateView):
+    template_name = "Post/PostListApi.html"
+
+
 class DetailPost(
     LoginRequiredMixin,
     DetailView,

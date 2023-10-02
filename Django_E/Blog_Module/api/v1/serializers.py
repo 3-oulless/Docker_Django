@@ -87,7 +87,12 @@ class PostSerializer(serializers.ModelSerializer):
         self,
         validated_data,
     ):
-        validated_data["author"] = Profile.objects.get(
-            user_id=self.context.get("request").user.id
-        )
+        if self.context.get("request").user.id is not None:
+            validated_data["author"] = Profile.objects.get(
+                user_id=self.context.get("request").user.id
+            )
+        else:
+            raise serializers.ValidationError(
+                {"detail": "User is not authenticated"}
+            )
         return super().create(validated_data)
