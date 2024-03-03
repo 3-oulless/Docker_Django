@@ -2,6 +2,9 @@ from django.shortcuts import (
     render,
     redirect,
 )
+
+from django.http import HttpResponse
+
 from django.contrib.auth import (
     authenticate,
     login,
@@ -17,7 +20,7 @@ from .models import (
     User,
 )
 
-# from .tasks import SendEmail
+from .tasks import SendEmail
 
 
 def login_user(
@@ -86,6 +89,6 @@ class CreateUser(View):
         )
 
 
-# def send_email(request):
-#     SendEmail.delay()
-#     return HttpResponse('<h1>Done sending </h1>')
+def send_email(request):
+    SendEmail.delay()
+    return HttpResponse("<h1>Done sending </h1>")

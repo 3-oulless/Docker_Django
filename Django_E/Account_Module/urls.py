@@ -2,10 +2,7 @@ from django.urls import (
     path,
     include,
 )
-from .views import (
-    login_user,
-    CreateUser,
-)
+from .views import login_user, CreateUser, send_email
 
 app_name = "account"
 
@@ -15,7 +12,7 @@ urlpatterns = [
         login_user,
         name="login",
     ),
-    # path('send-email/',send_email,name="send_email"),
+    path("send-email/", send_email, name="send_email"),
     path(
         "create/",
         CreateUser.as_view(),

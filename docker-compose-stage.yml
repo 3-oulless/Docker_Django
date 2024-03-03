@@ -21,7 +21,7 @@ services:
   backend:
     build: .
     container_name: backend
-    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn Django_E.wsgi --bind 0.0.0.0:8000"
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py collectstatic --noinput && black -l 78 . && flake8 . && gunicorn Django_E.wsgi --bind 0.0.0.0:8000"
     volumes:
       - ./Django_E:/app
       - static_volume:/app/static
@@ -57,6 +57,15 @@ services:
     depends_on:
       - redis
       - backend
+
+  worker:
+    build: .
+    command: celery -A Django_E worker -l info
+    depends_on:
+      - redis
+      - backend
+    volumes:
+      - ./Django_E:/app
 
 
 volumes:
