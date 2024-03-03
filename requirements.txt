@@ -1,40 +1,35 @@
-asgiref
-attrs
-certifi
-charset-normalizer
-coreapi
-coreschema
-Django
-django-filter
-djangorestframework
-djangorestframework-simplejwt
-drf-yasg
-idna
-inflection
-itypes
-Jinja2
-jsonschema
-jsonschema-specifications
-Markdown
-MarkupSafe
-packaging
-Pillow
-PyJWT
+# general  modules
+django >3.2,<3.3
 python-decouple
-pytz
-PyYAML
-referencing
-requests
-rpds-py
-sqlparse
-swagger-spec-validator
-typing_extensions
-uritemplate
-urllib3
+Pillow
+djangorestframework==3.11.0
+
+
+# third party modules
+markdown       
+django-filter  
+drf-yasg[validation]
+djangorestframework-simplejwt
+djoser
+django-cors-headers
+
+# deployment module
+gunicorn
+
+# email third party modules
 django-mail-templated
+
+# refactoring and tests
 black
 flake8
 pytest
 pytest-django
-faker
-django-cors-headers
+Faker
+
+# background proccess and cache
+celery
+redis
+django-redis
+
+#database client
+psycopg2-binary

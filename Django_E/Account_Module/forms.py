@@ -19,10 +19,7 @@ class CreateUserForm(forms.Form):
 
     def clean(self):
         data = self.cleaned_data
-        if (
-            self.cleaned_data["password"]
-            != self.cleaned_data["re_password"]
-        ):
+        if self.cleaned_data["password"] != self.cleaned_data["re_password"]:
             raise forms.ValidationError("Passwords do not match")
         return data
 

@@ -15,6 +15,7 @@ urlpatterns = [
         login_user,
         name="login",
     ),
+    # path('send-email/',send_email,name="send_email"),
     path(
         "create/",
         CreateUser.as_view(),

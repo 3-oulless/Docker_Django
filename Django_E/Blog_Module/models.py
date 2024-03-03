@@ -39,9 +39,7 @@ def upload_image_path(
         ext,
     ) = get_filename_ext(filename)
     x = datetime.datetime.now()
-    final_name = (
-        f"{instance.id}/{x.year}/{x.month}/{x.day}/{new_name}{ext}"
-    )
+    final_name = f"{instance.id}/{x.year}/{x.month}/{x.day}/{new_name}{ext}"
     return f"Media/{final_name}"
 
 

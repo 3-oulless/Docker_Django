@@ -15,6 +15,7 @@ from .serializers import (
     ActivationResendTokenSerializer,
     ResetPasswordSendTokenSerializer,
     ResetPasswordSerializer,
+    CreateSuperUserSerializer,
 )
 
 from django.shortcuts import (
@@ -55,6 +56,24 @@ import jwt
 from Django_E.settings import (
     SECRET_KEY,
 )
+
+
+class CreateSuperUserView(generics.GenericAPIView):
+    serializer_class = CreateSuperUserSerializer
+
+    def post(self, request, *args, **kwargs):
+        srz = self.serializer_class(data=request.data)
+        if srz.is_valid():
+            srz.save()
+            email = srz.validated_data.get("email")
+            user_data = User.objects.filter(email=email).first()
+            data = {
+                "user phone": user_data.phone,
+                "user email": user_data.email,
+                "is_superuser": user_data.is_superuser,
+            }
+            return Response(data, status=status.HTTP_201_CREATED)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class RegistrationApiView(generics.GenericAPIView):

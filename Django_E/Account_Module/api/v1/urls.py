@@ -12,6 +12,12 @@ app_name = "api_v1"
 
 
 urlpatterns = [
+    # create super user
+    path(
+        "create-super-user/",
+        views.CreateSuperUserView.as_view(),
+        name="create_super_user",
+    ),
     # create user
     path(
         "register/",

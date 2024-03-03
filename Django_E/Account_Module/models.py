@@ -66,7 +66,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    phone = models.IntegerField(unique=True)
+    phone = models.BigIntegerField(unique=True)
     email = models.EmailField(max_length=255, unique=True)
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)

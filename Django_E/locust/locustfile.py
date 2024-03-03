@@ -8,7 +8,7 @@ class QuickstartUser(HttpUser):
             json={"phone": "9182021310", "password": "Admin@5847"},
         ).json()
         self.client.headers = {
-            "Authorization": f"Bearer {responses.get('access',None)}"
+            "Authorization": f"Bearer {responses.get('access', None)}"
         }
 
     @task

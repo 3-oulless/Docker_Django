@@ -22,6 +22,43 @@ from rest_framework_simplejwt.serializers import (
 )
 
 
+class CreateSuperUserSerializer(serializers.ModelSerializer):
+    re_password = serializers.CharField(
+        max_length=250,
+        write_only=True,
+    )
+
+    class Meta:
+        model = User
+        fields = [
+            "phone",
+            "email",
+            "password",
+            "re_password",
+        ]
+
+    def validate(self, attrs):
+        if attrs.get("password") != attrs.get("re_password"):
+            raise serializers.ValidationError(
+                {"password": "password docent match"}
+            )
+
+        try:
+            validate_password(attrs.get("password"))
+        except exceptions.ValidationError as e:
+            raise serializers.ValidationError({"password": list(e.messages)})
+
+        return super().validate(attrs)
+
+    def create(self, validated_data):
+        validated_data.pop(
+            "re_password",
+            None,
+        )
+
+        return User.objects.create_superuser(**validated_data)
+
+
 class RegistrationSerializer(serializers.ModelSerializer):
     re_password = serializers.CharField(
         max_length=250,
@@ -46,9 +83,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         try:
             validate_password(attrs.get("password"))
         except exceptions.ValidationError as e:
-            raise serializers.ValidationError(
-                {"password": list(e.messages)}
-            )
+            raise serializers.ValidationError({"password": list(e.messages)})
 
         return super().validate(attrs)
 
@@ -211,8 +246,6 @@ class ResetPasswordSerializer(serializers.Serializer):
         try:
             validate_password(attrs.get("password"))
         except exceptions.ValidationError as e:
-            raise serializers.ValidationError(
-                {"password": list(e.messages)}
-            )
+            raise serializers.ValidationError({"password": list(e.messages)})
 
         return super().validate(attrs)

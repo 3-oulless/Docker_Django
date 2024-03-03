@@ -17,6 +17,8 @@ from .models import (
     User,
 )
 
+# from .tasks import SendEmail
+
 
 def login_user(
     request,
@@ -82,3 +84,8 @@ class CreateUser(View):
             "Account/create.html",
             context,
         )
+
+
+# def send_email(request):
+#     SendEmail.delay()
+#     return HttpResponse('<h1>Done sending </h1>')
